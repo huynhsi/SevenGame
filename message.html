@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Thông báo</title>
+</head>
+<style>
+.toast{
+    z-index: 3;
+    min-width: 400px;
+    max-width: 450px;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 2px;
+    padding: 20px 0;
+    border-left: 4px solid;
+    box-shadow: 0 5px 8px rgba(0, 0,0, 0.08);
+    /* transform: translateX(calc(100% + 32px)); */
+    animation: slideInleft ease .3s , fadeOut linear 1s 3s forwards;
+}
+@keyframes  slideInleft{
+    from {
+        opacity: 0;
+        transform: translateX(calc(100% + 32px));
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+@keyframes fadeOut{
+    to {opacity: 0;}
+}
+h3{
+    margin-bottom: 0;
+}
+p{
+    margin-top: 0;
+}
+.toast__icon{
+    font-size: 24px;
+}
+.toast + .toast{
+    margin-top: 24px;
+}
+.toast__icon,
+.toast__close{
+    padding: 0 16px;
+}
+.toast__body{
+    flex-grow: 1;
+}
+.toast__title{
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+.toast__msg{
+    font-size: 14px;
+    color: #888;
+    margin-top: 4px;
+    line-height: 1.5;
+}
+.toast__close{
+    font-size: 20px;
+    color: rgba(0, 0,0, 0.5);
+    cursor: pointer;
+}
+.tost--success{
+    border-color: #47d864;
+}
+.tost--success .toast__icon{
+    color: #47d864;
+}
+.tost--info{
+    border-color: #2f86eb;
+}
+.tost--info .toast__icon{
+    color: #2f86eb;
+}
+.tost--warning{
+    border-color: #ffc021;
+}
+.tost--warning .toast__icon{
+    color: #ffc021;
+}
+.tost--error{
+    border-color: #ff623d;
+}
+.tost--error .toast__icon{
+    color: #ff623d;
+}
+#toast{
+    position: fixed;
+    top: 32px;
+    right:32px;
+}
+</style>
+<body>
+    <div id="toast">
+<!--             
+       
+        <div class="toast tost--success">
+            <div class="toast__icon">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div class="toast__body">
+                <h3 class="toast__title">Success</h3>
+                <p class="toast__msg">Đôi khi ta gặp nhau để dạy nhau cách sống trong khổ đau.</p>
+            </div>
+            <div class="toast__close">
+                <i class="fa-solid fa-square-xmark"></i>
+            </div>
+        </div>
+       
+        <div class="toast tost--info">
+            <div class="toast__icon">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div class="toast__body">
+                <h3 class="toast__title">info</h3>
+                <p class="toast__msg">Đôi khi ta gặp nhau để dạy nhau cách sống trong khổ đau.</p>
+            </div>
+            <div class="toast__close">
+                <i class="fa-solid fa-square-xmark"></i>
+            </div>
+        </div>
+        
+        <div class="toast tost--warning">
+            <div class="toast__icon">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div class="toast__body">
+                <h3 class="toast__title">warning</h3>
+                <p class="toast__msg">Đôi khi ta gặp nhau để dạy nhau cách sống trong khổ đau.</p>
+            </div>
+            <div class="toast__close">
+                <i class="fa-solid fa-square-xmark"></i>
+            </div>
+        </div>
+        
+        <div class="toast tost--error">
+            <div class="toast__icon">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div class="toast__body">
+                <h3 class="toast__title">Error</h3>
+                <p class="toast__msg">Đôi khi ta gặp nhau để dạy nhau cách sống trong khổ đau.</p>
+            </div>
+            <div class="toast__close">
+                <i class="fa-solid fa-square-xmark"></i>
+            </div>
+        </div> -->
+    </div>
+    <div>
+         <button onclick="showSuccessToast()" style="background-color: #47d864;"> Show Success </button>
+        <button onclick="showErrorToast()" style="background-color: #ff623d"> Show Error </button>
+    </div>
+
+    <script>
+        // show tost funtion
+        function toast({
+            title = '',
+            message='',
+            type = 'info',
+            duration = 3000
+        }) {
+            const main = document.getElementById('toast');
+            if (main){
+                const toast = document.createElement('div');
+                
+             const autoRemoveID =  setTimeout(function(){
+                    main.remove(toast)
+                },duration + 1000)
+
+                toast.onclick = function(e) {
+                    if (e.target.closest('.toast__close')) {
+                        main.removeChild(toast);
+                        clearTimeout(autoRemoveID);
+                    }
+                }
+
+                const icons = {
+                    success: 'fas fa-circle-check',
+                    info: 'fas fa-info-check',
+                    warning: 'fas fa-exclamation-circle',
+                    error: 'fas fa-exclamation-circle',
+                };
+                const icon = icon[type];
+                const delay = (duration / 1000).toFixed(2);
+
+                toast.classList.add('toast', `toast--${type}`);
+                toast.style.animation=`slideInleft ease .3s , fadeOut linear 1s 3s forwards`;
+                toast.innerHTML = `
+                        <div class="toast__icon">
+                        <i class=${icon}></i>
+                    </div>
+                    <div class="toast__body">
+                        <h3 class="toast__title">${title}</h3>
+                        <p class="toast__msg">${message}</p>
+                    </div>
+                    <div class="toast__close">
+                        <i class="fa-solid fa-square-xmark"></i>
+                    </div>
+                `;
+                main.appendChild(toast);
+                
+            }
+        }
+        toast({
+            title: 'Success',
+            message: 'Đôi khi ta gặp nhau để dạy nhau cách sống trong khổ đau',
+            type: 'info',
+            duration: 3000
+        });
+
+        function showSuccessToast(){
+            toast({
+            title: 'Thành công!',
+            message: 'Đôi khi ta gặp nhau để dạy nhau cách sống trong khổ đau',
+            type: 'success',
+            duration: 3000
+        });
+        }
+        function showErrorToast(){
+            toast({
+            title: 'Thất bại!',
+            message: 'Đôi khi ta gặp nhau để dạy nhau cách sống trong khổ đau',
+            type: 'error',
+            duration: 3000
+        });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>seven game</title>
+</head>
+<style>
+    .grid{
+        margin-top: 80px;
+        position: absolute;
+        width: 570px;
+        height: 300px;
+        border: solid black 1px;
+    }
+    .block{
+        position: absolute;
+        width: 100px;
+        height: 20px;
+        background-color: blue;  
+    }
+    .user{
+        position: absolute;
+        width: 100px;
+        height: 20px;
+        background-color: purple;  
+    }
+    .ball{
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 10px;
+        background-color: red;
+    }
+</style>
+<body>
+    <div id="score"></div>
+    <div class="grid"></div>
+
+    <script src="breakout.js"></script>
+</body>
+</html>
